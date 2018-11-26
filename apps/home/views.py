@@ -39,6 +39,7 @@ def detail(request,id):
 
 
 def cate_movie(request):
+    username = request.user.username
     cates = TLogname.objects.all()
     subs = TClassname.objects.all()
     locs = TLocname.objects.all()

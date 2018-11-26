@@ -233,12 +233,17 @@
                         .css('color','white');
             $('#L{{ cata_log_id }}').css('color','black');
             $('#l{{ cata_log_id }}').css('background',' #b5b5b5');
+            $('#{{ cata_log_id }}').mouseout(function () {
+                $(this).css('background','#343a3f');
+                $(this).css('color','white')
+            });
             $('#{{ sub_class_name }}').css('background','#343a3f')
                         .css('color','white');
             $('#{{ loc_id }}').css('background','#343a3f')
                         .css('color','white');
+
             $('#{{ year }}').css('background','#343a3f')
-                        .css('color','white')
+                        .css('color','white');
         })
     </script>
 {% endblock %}
