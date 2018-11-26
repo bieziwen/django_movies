@@ -1,0 +1,216 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+<script href="jQuery1.11min/jquery-1.11.0.min.js"></script>
+<script src="/static/jQuery3.3.1/ssg/jsRapStar.js"></script>
+<link rel="stylesheet" href="/static/css/htmleaf-demo.css" type="text/css">
+<link rel="stylesheet" href="/static/css/jsRapStar.css" type="text/css">
+<link rel="stylesheet" href="/static/css/normalize.css" type="text/css">
+{% block page_css %}
+    <style type="text/css">
+       li{
+            list-style: none;
+        }
+        /*头部登录栏样式*/
+        .head_up{
+            height: 32px;
+            background: #343a3f;
+            padding: 5px;
+        }
+        .head_up a,.head_up span{
+            margin-left: 10px;
+            color: white;
+        }
+        .head_up a:hover ,.main a:hover{
+            color: #2aabd2;
+        }
+        .main{
+            /*border: 1px solid green;*/
+            height: 700px;
+            margin: 0 5%;
+            width: 90%;
+        }
+        .main_left{
+            margin: 20px;
+            /*border: 1px solid red;*/
+            /*height: 640px;*/
+            width: 30%;
+        }
+        .main_left>img{
+            width:100% ;
+            height: 80%;
+        }
+        .main_left div{
+            margin-top: 20px;
+            height: 70px;
+            padding: 20px;
+            text-align: center;
+            background: gray;
+        }
+        .main_left a{
+            font-size: 26px;
+            color: white;
+        }
+        .main_left{
+            {#display:inline-block;#}
+            float: left;
+        }
+
+        .main_right{
+            float: right;
+            /*border: 1px solid red;*/
+            font-size: 20px;
+            height: 650px;
+            {#display: inline-block;#}
+            width: 60%;
+            padding: 0px 10px;
+            /*margin-top: -20px;*/
+            margin-left: 20px;
+        }
+        .main_right>p{
+            padding-top: 5px;
+            margin-top: 10px;
+        }
+        .main_right>p>span{
+            color: #2aabd2;
+            font-weight: 600;
+        }
+        .content{
+            overflow: hidden;
+            height: 140px;
+            width: 100%;
+            {#white-space: nowrap;#}
+            text-overflow: ellipsis;
+        }
+        #name{
+            font-size: 30px;
+        }
+        #link{
+            margin-left: 300px;
+        }
+       .foot{
+            margin-top: 150px;
+        }
+       .foot>p{
+            text-align: center;
+        }
+    </style>
+{#    猜你喜欢#}
+    <style type="text/css">
+    .like{
+        margin: 50px 5%;
+        width: 100%;
+        background: white;
+    }
+    .like_main{
+        width: 100%;
+    }
+    .like>p{
+        color: black;
+    }
+    .like_main>li{
+        position: relative;
+        float: left;
+        width: 15%;
+        margin-left: 1%;
+    }
+    .like_main img{
+        height: 180px;
+        width: 100%;
+    }
+    .like_main>li>p{
+        position: absolute;
+        font-size: 12px;
+        bottom: 20px;
+        right:0px;
+        color: white;
+    }
+    .like_main a>p{
+        text-overflow:ellipsis;
+        overflow: hidden;
+        text-align: center;
+        white-space: nowrap;
+        font-size: 12px;
+    }
+    </style>
+{#    剧情简介#}
+    <style type="text/css">
+        .plot{
+            background: white;
+            margin: 20px 5%;
+            font-size: 12px;
+        }
+    </style>
+{% endblock %}
+{% block page_title %}
+    电影详情
+{% endblock %}
+{% block page_head %}
+{#    头部部分#}
+    <div class="head">
+        <div class="head_up">
+            <span>最新电影资源</span>
+            <a href="#">收藏网站</a>
+            {% include 'head.html' %}
+            <a href="{% url 'index' %}">首页</a>
+            {% for i in li  %}
+                <a href="#">{{ i }}</a>
+            {% endfor %}
+        </div>
+        {% if not username %}
+                    <marquee behavior="scroll" direction="left"><a href="{% url 'login' %}">登录</a><span>|</span><a href="{% url 'register' %}">注册</a><span>观看更多高清无码电影</span></marquee>
+        {% else %}
+                    <marquee behavior="scroll" direction="left">欢迎你，{{ username }}</marquee>
+        {% endif %}
+{#        <marquee class="head_down"><a href="#">登录</a><span>|</span><a href="#">注册</a><span>观看更多高清无码电影</span></marquee>#}
+    </div>
+{% endblock %}
+{% block page_main %}
+    <div class="main clearfix">
+        <div class="main_left">
+            <img src="{% static film.image %}" alt="">
+            <a href="#"><div>立即播放</div></a>
+        </div>
+        <div class="main_right">
+            <p id="name">{{ film.name }}</p>
+            <p><span>上映年代:</span>{{ film.on_decade }}   &nbsp;  &nbsp; &nbsp; &nbsp;<span>状态:</span>全集</p>
+            <p><span>类型:</span>{{ film.type_name }}</p>
+            <p><span>主演:</span>{{ film.actor }}</p>
+            <p><span>地区:</span>{{ film.loc_name }}</p>
+            <p><span>更新日期:</span>{{ film.update_time }}</p>
+            <p class="content"><span>剧情:</span>{{ film.plot }}</p>
+            <p><span>影片评价</span></p>
+            <p><img src="/static/img/3.jpg" alt=""></p>
+            <p>
+                <img src="/static/img/5.png" alt="">
+                <img id="link" src="/static/img/4.jpg" alt="">
+            </p>
+        </div>
+    </div>
+    <div class="like">
+            <p>猜你喜欢</p>
+            <ul class="like_main clearfix">
+                {% for movie in films|slice:':5' %}
+                    <li class="clearfix">
+                        <p>{{ movie.resolution }}</p>
+                        <a href="{% url 'detail' movie.id %}">
+                            <img src="{% static movie.image %}" alt="" title="{{ movie.name }}">
+                            <p>{{ movie.name }}</p>
+                        </a>
+                    </li>
+                {% endfor %}
+
+            </ul>
+        </div>
+    <div class="plot">
+            <p>剧情简介</p>
+            <p>
+                {{ film.plot }}
+            </p>
+        </div>
+{% endblock %}
+{% block page_footer %}
+    <div class="foot">
+        <p>免责声明：如果侵犯了你的权益，请发邮件至：chl14@163.com，我们会及时删除侵权内容，谢谢合作！</p>
+        <p>Copyright © 2018 蜀ICP备16028726号 2018 All Rights Reserved.<a href="http://www.cnzz.com/stat/website.php?web_id=1272902876"><img src="http://icon.cnzz.com/img/pic.gif"></a></p>
+    </div>
+{% endblock %}

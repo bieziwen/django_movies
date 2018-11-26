@@ -1,0 +1,384 @@
+{% extends 'base.html' %}
+{% if request.user.is_authenticated %}
+{#    表示已经登录#}
+{% else %}
+{#    表示没有登录#}
+{% endif %}
+{% load staticfiles %}
+{% block page_title %}
+    电影网站
+{% endblock %}
+{% block page_css %}
+    <style type="text/css">
+        /*总体样式*/
+        .container-fluid{
+            min-width: 1000px;
+        }
+        .head{
+            /*border: 1px solid red;*/
+        }
+        li{
+            list-style: none;
+        }
+        /*头部登录栏样式*/
+        .head_up{
+            height: 32px;
+            background: #343a3f;
+            padding: 5px;
+        }
+        .head_up a,.head_up span{
+            margin-left: 10px;
+            color: white;
+        }
+        .head_up a:hover ,.main a:hover{
+            color: #2aabd2;
+        }
+        .head_down{
+            margin-left: 1000px;
+        }
+        /*内容样式*/
+        .main{
+            margin-left:5%;
+            width: 90%;
+            height: 500px;
+            /*border: 1px solid green;*/
+            min-width: 1000px;
+            min-height:500px ;
+        }
+        /*内容左边部分样式*/
+        .main_left{
+            width: 65%;
+            float: left;
+        }
+        .main_left_top{
+            padding:4px;
+            /*width: 60%;*/
+            height: 30px;
+            background: #343a3f;
+        }
+        .main_left_top span,.main_right_top span{
+            color: white;
+            padding: 10px;
+        }
+        .main_left_top>a{
+            color: white;
+            margin-left: 78%;
+        }
+        .main_left_content{
+            /*border: 1px solid black;*/
+            /*width: 60%;*/
+            padding: 10px 0px;
+        }
+        .mian_left_content>ul{
+            padding-left: 0px;
+            margin-left: -10px;
+        }
+        .main_left_content li{
+            width: 100px;
+            height: 220px;
+            /*border: 1px solid black;*/
+            margin-left: 20px;
+            margin-top: 10px;
+            float: left;
+        }
+        .main_left_content>ul>li>p{
+            /*margin-left: 40px;*/
+        }
+        .main_left_content>ul>li>img{
+            margin-top: 0;
+            width: 112px;
+            height: 160px;
+        }
+        /*内容右边部分样式*/
+        .main_right{
+            {#margin-right: 10%;#}
+            /*min-width: 520px;*/
+            /*border: 1px solid black;*/
+            max-height:500px ;
+            width: 35%;
+            float: right;
+        }
+        .main_right_top{
+            padding:4px;
+            /*width: 100%;*/
+            height: 30px;
+            background: #343a3f;
+        }
+        .main_right_content a{
+            display: inline-block;
+            /*border: 1px solid green;*/
+            width: 180px;
+            padding-top: 5px;
+            height: 21px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .rank{
+            position: relative;
+        }
+        .rank_img{
+            display: none;
+            width:120px ;
+            position: absolute;
+            left: -120px;
+
+        }
+        .rank a{
+            margin-left: 5px;
+        }
+        .main_right_content>ul li>span:first-child{
+            display: inline-block;
+            width: 22px;
+            height: 20px;
+            line-height: 18px;
+            text-align: center;
+            color: white;
+            /*padding-left: 5px;*/
+            /*height: 15px;*/
+            /*padding: 2px;*/
+            /*background:orange;*/
+
+        }
+        .time{
+            {#color: red;#}
+            margin-left: 38%;
+            /*padding-right: 10px;*/
+            /*margin-right: 50px;*/
+        }
+        .main_right_content li{
+            margin-top: 12px;
+            margin-left: -25px;
+        }
+        .up span:first-child{
+            padding: 2px;
+            background: orange;
+        }
+        .down span:first-child{
+            padding: 2px;
+            background: #2aabd2;
+        }
+        .content{
+            padding-left: 0px;
+            padding-top: 10px;
+        }
+        /*设置电影的样式*/
+        .movie{
+            margin-top: 0;
+        }
+        .movie_name{
+            text-align: center;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            height: 40px;
+        }
+        .movie_update_time{
+            text-align: center;
+            margin-top: -20px;
+        }
+        .right{
+            margin-top: 28px;
+        }
+        /*尾部样式*/
+        .foot{
+            margin-top: 150px;
+        }
+        .foot>p{
+            text-align: center;
+        }
+    </style>
+{% endblock %}
+{% block page_jq %}
+     <script type="text/javascript">
+        $(function () {
+            $('.rank').mouseover(function () {
+                $(this).find('.rank_img').show();
+                $(this).css(' background','black')
+            });
+            $('.rank').mouseout(function () {
+                $(this).find('.rank_img').hide();
+                $(this).css('background','white')
+            })
+        })
+    </script>
+
+{% endblock %}
+{% block page_head %}
+{#    头部部分#}
+    <div class="head">
+        <div class="head_up">
+            <span>最新电影资源</span>
+            <a href="#">收藏网站</a>
+            {% include 'head.html' %}
+            <a href="{% url 'index' %}">首页</a>
+            <a href="/home/cate?cata_log_id=f39c979857a4874a0157a4a6a4fe">短视频</a>
+            <a href="/home/cate?cata_log_id=f39c979857a4874a0157a4a6a4fe0000">电影</a>
+            <a href="/home/cate?cata_log_id=f39c979857a4c8c50157a8ea80700018">电视剧</a>
+            <a href="/home/cate?cata_log_id=f39c979857a4c8c50157a8eaaee30019">动漫</a>
+        </div>
+        {% if not username %}
+                    <marquee behavior="scroll" direction="left"><a href="{% url 'login' %}">登录</a><span>|</span><a href="{% url 'register' %}">注册</a><span>观看更多高清无码电影</span></marquee>
+        {% else %}
+                    <marquee behavior="scroll" direction="left">欢迎你，{{ username }}</marquee>
+        {% endif %}
+{#        <marquee class="head_down"><a href="#">登录</a><span>|</span><a href="#">注册</a><span>观看更多高清无码电影</span></marquee>#}
+    </div>
+{% endblock %}
+{% block page_main %}
+{#    内容部分#}
+    <div class="main clearfix">
+        <div class="main_left">
+            <div class="main_left_top">
+                <span>最新电影推荐</span>
+                <a href="/home/cate?cata_log_id=f39c979857a4874a0157a4a6a4fe0000">更多</a>
+            </div>
+            <div class="main_left_content">
+                <ul class="content clearfix">
+                    {% for film in films1|slice:':12' %}
+                        <li class="movie">
+                            <img src="{% static film.image  %}" alt="">
+                            <p class="movie_name"><a href='{% url 'detail' film.id %}'>{{ film.name }}</a></p>
+                            <p class="movie_update_time">{{ film.sub_class_name.sub_class_name }} {{ film.update_time|slice:'5:10'}}</p>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="main_right">
+            <div class="main_right_top">
+                <span>最新电影排行榜</span>
+            </div>
+            <div class="main_right_content">
+                <div class="main_right_content">
+                    <ul class="right">
+                        <div class="up">
+                            {% for film in films1|slice:':3' %}
+                                <li class="rank">
+                                    <span>{{ forloop.counter }}</span><a href="">{{ film.name }}</a><span class="time">{{ film.update_time|slice:'5:10' }}</span>
+                                    <img class="rank_img" src="{% static film.image %}" alt="">
+                                </li>
+                            {% empty %}
+                                <p>没有数据！！！</p>
+                            {% endfor %}
+                        </div>
+                        <div class="down">
+                            {% for film in films1|slice:'3:12' %}
+                                <li class="rank">
+                                    <span>{{ forloop.counter|add:3 }}</span><a href="">{{ film.name }}</a><span class="time">{{ film.update_time|slice:'5:10' }}</span>
+                                    <img class="rank_img" src="{% static film.image %}" alt="">
+                                </li>
+                            {% empty %}
+                                <p>没有数据！！！</p>
+                            {% endfor %}
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="main clearfix">
+        <div class="main_left">
+            <div class="main_left_top">
+                <span>最新电视剧推荐</span>
+                <a href="/home/cate?cata_log_id=f39c979857a4c8c50157a8ea80700018">更多</a>
+            </div>
+            <div class="main_left_content">
+                <ul class="content clearfix">
+                    {% for film in films2|slice:':12' %}
+                        <li class="movie">
+                            <img src="{% static film.image  %}" alt="">
+                            <p class="movie_name"><a href='{% url 'detail' film.id %}'>{{ film.name }}</a></p>
+                            <p class="movie_update_time">{{ film.sub_class_name.sub_class_name }} {{ film.update_time|slice:'5:10'}}</p>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="main_right">
+            <div class="main_right_top">
+                <span>最新电视剧排行榜</span>
+            </div>
+            <div class="main_right_content">
+                <div class="main_right_content">
+                    <ul class="right">
+                        <div class="up">
+                            {% for film in films2|slice:':3' %}
+                                <li class="rank">
+                                    <span>{{ forloop.counter }}</span><a href="">{{ film.name }}</a><span class="time">{{ film.update_time|slice:'5:10' }}</span>
+                                    <img class="rank_img" src="{% static film.image %}" alt="">
+                                </li>
+                            {% empty %}
+                                <p>没有数据！！！</p>
+                            {% endfor %}
+                        </div>
+                        <div class="down">
+                            {% for film in films2|slice:'3:12' %}
+                                <li class="rank">
+                                    <span>{{ forloop.counter|add:3 }}</span><a href="">{{ film.name }}</a><span class="time">{{ film.update_time|slice:'5:10' }}</span>
+                                    <img class="rank_img" src="{% static film.image %}" alt="">
+                                </li>
+                            {% empty %}
+                                <p>没有数据！！！</p>
+                            {% endfor %}
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="main clearfix">
+        <div class="main_left">
+            <div class="main_left_top">
+                <span>最新动漫推荐</span>
+                <a href="/home/cate?cata_log_id=f39c979857a4c8c50157a8eaaee30019">更多</a>
+            </div>
+            <div class="main_left_content">
+                <ul class="content clearfix">
+                    {% for film in films3|slice:':12' %}
+                        <li class="movie">
+                            <img src="{% static film.image  %}" alt="">
+                            <p class="movie_name"><a href='{% url 'detail' film.id %}'>{{ film.name }}</a></p>
+                            <p class="movie_update_time">{{ film.sub_class_name.sub_class_name }} {{ film.update_time|slice:'5:10'}}</p>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="main_right">
+            <div class="main_right_top">
+                <span>最新动漫排行榜</span>
+            </div>
+            <div class="main_right_content">
+                <div class="main_right_content">
+                    <ul class="right">
+                        <div class="up">
+                            {% for film in films3|slice:':3' %}
+                                <li class="rank">
+                                    <span>{{ forloop.counter }}</span><a href="">{{ film.name }}</a><span class="time">{{ film.update_time|slice:'5:10' }}</span>
+                                    <img class="rank_img" src="{% static film.image %}" alt="">
+                                </li>
+                            {% empty %}
+                                <p>没有数据！！！</p>
+                            {% endfor %}
+                        </div>
+                        <div class="down">
+                            {% for film in films3|slice:'3:12' %}
+                                <li class="rank"><span>{{ forloop.counter|add:3 }}</span><a href="">{{ film.name }}</a><span class="time">{{ film.update_time|slice:'5:10' }}</span>
+                                    <img class="rank_img" src="{% static film.image %}" alt="">
+                                </li>
+                            {% empty %}
+                                <p>没有数据！！！</p>
+                            {% endfor %}
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block page_footer %}
+    <div class="foot">
+        <p>免责声明：如果侵犯了你的权益，请发邮件至：chl14@163.com，我们会及时删除侵权内容，谢谢合作！</p>
+        <p>Copyright © 2018 蜀ICP备16028726号 2018 All Rights Reserved.<a href="http://www.cnzz.com/stat/website.php?web_id=1272902876"><img src="http://icon.cnzz.com/img/pic.gif"></a></p>
+    </div>
+{% endblock %}

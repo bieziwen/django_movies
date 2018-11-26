@@ -1,0 +1,211 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block page_title %}
+    {{ film.name }}
+{% endblock %}
+{% block page_css %}
+{#    电影详细介绍#}
+    <style type="text/css" rel="stylesheet">
+        .centext_head{
+            width: 100%;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            background: white;
+            font-size: 18px;
+        }
+        .c{
+            color: #49c1e6;
+        }
+        a{
+            text-decoration: none;
+            color: black;
+        }
+        a:hover{
+            color: #0000ff;
+        }
+        .wrap{
+            background: #dcdfe2;
+            width: 100%;
+        }
+        .context{
+            width: 80%;
+            margin-left: 10%;
+        }
+        .main{
+            background: white;
+            width: 100%;
+        }
+        .main>div{
+            float: left;
+        }
+        .left_main{
+            width: 25%;
+        }
+        .left_main>img{
+            width: 90%;
+            margin-left: 5%;
+        }
+        .left_main>p{
+            width: 90%;
+            margin-left: 5%;
+            text-align: center;
+            font-size: 22px;
+            color: white;
+            background: black;
+            margin-top: 10px;
+        }
+        .left_main>p>a{
+            color: white;
+        }
+        .center_mian{
+            width: 45%;
+        }
+        .right_mian{
+            width: 30%;
+        }
+    </style>
+{#    猜你喜欢部分#}
+    <style type="text/css">
+    .like{
+        margin-top: 20px;
+        width: 100%;
+        background: white;
+    }
+    .like_main{
+        width: 100%;
+    }
+    .like>p{
+        color: black;
+    }
+    .like_main>li{
+        position: relative;
+        float: left;
+        width: 15%;
+        margin-left: 1%;
+    }
+    .like_main img{
+        height: 180px;
+        width: 100%;
+    }
+    .like_main>li>p{
+        position: absolute;
+        font-size: 12px;
+        bottom: 20px;
+        right:0px;
+        color: white;
+    }
+    .like_main a>p{
+        text-overflow:ellipsis;
+        overflow: hidden;
+        text-align: center;
+        white-space: nowrap;
+        font-size: 12px;
+    }
+    </style>
+{#    剧情简介#}
+    <style type="text/css">
+        .plot{
+            background: white;
+            margin-top: 20px;
+            font-size: 12px;
+        }
+    </style>
+{% endblock %}
+{% block page_head %}
+    <div class="head">
+        <span>欢迎来到全网最新影片资源共享</span>
+        <span><a href="#">收藏网站</a></span>
+        {% if user %}
+            <span><a href="{% url 'login' %}">{{ user.username }}</a></span>
+            <span><a href="{% url 'logout' %}">退出</a></span>|
+        {% else %}
+            <span><a href="{% url 'login' %}">登录</a></span>
+            <span><a href="{% url 'register' %}">注册</a></span>|
+        {% endif %}
+        <span><a href="{% url 'index' %}">首页</a></span>
+        <span><a href="#">电影</a></span>
+        <span><a href="#">电视剧</a></span>
+        <span><a href="#">动漫</a></span>
+    </div>
+{% endblock %}
+{% block page_main %}
+    <div class="context">
+        <div class="centext_head">
+            <span>当前位置:</span>
+            <a href="{% url 'index' %}">首页</a> >>
+            <a href="#">{{ film.cate_log_name }}</a> >>
+            <a href="#">{{ film.sub_class_name}}</a> >>
+            <a href="#">{{ film.type_name}}</a>>>
+            <span>{{ film.name }}</span>
+        </div>
+        <div class="main clearfix">
+            <div class="left_main">
+                <img src="{% static film.image %}" alt="">
+                <p><a href="">立即播放</a></p>
+            </div>
+            <div class="center_mian">
+                <p>
+                    <span class="c">上映年代:</span>
+                    <span>{{ film.on_decade.on_decade }}</span>
+                    <span class="c"></span>
+                    <span>{{ film.status }}</span>
+                </p>
+                <p>
+                    <span class="c">类型:</span>
+                    <a href="">{{ film.type_name }}</a>
+                </p>
+                <p>
+                    <span class="c">主演:</span>
+                    <a href="#">{{ film.actor }}</a>
+                </p>
+                <p>
+                    <span class="c">地区:</span>
+                    <span>{{ film.loc_name }}</span>
+                </p>
+                <p>
+                    <span class="c">更新日期:</span>
+                    <span>{{ film.update_time }}</span>
+                </p>
+                <p>
+                    <span class="c">剧情:</span>
+                    <span>详细见下</span>
+                </p>
+                <p><span class="c">影片评价</span></p>
+                <p><img src="/static/img/2.png" alt=""></p>
+                <p>
+                    <span>8</span>
+                    <span>.0</span>
+                    <span>棒极了({{ film.evaluation }}评)</span>
+                    <img src="/static/img/3.png" alt="">
+                </p>
+            </div>
+            <div class="right_mian">
+                <p>友情提示:欢迎大家使用网盘下载</p>
+            </div>
+
+        </div>
+        <div class="like">
+            <p>猜你喜欢</p>
+            <ul class="like_main clearfix">
+                {% for movie in films %}
+                    <li class="clearfix">
+                        <p>{{ movie.resolution }}</p>
+                        <a href="{% url 'detail' movie.id %}">
+                            <img src="{% static movie.image %}" alt="" title="{{ movie.name }}">
+                            <p>{{ movie.name }}</p>
+                        </a>
+                    </li>
+                {% endfor %}
+
+            </ul>
+        </div>
+        <div class="plot">
+            <p>剧情简介</p>
+            <p>
+                {{ film.plot }}
+            </p>
+        </div>
+    </div>
+{% endblock %}
+
+

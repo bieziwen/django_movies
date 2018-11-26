@@ -1,0 +1,328 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block page_title %}
+    电影分类
+{% endblock %}
+{% block page_css %}
+    <style type="text/css" rel="stylesheet">
+    /*公共样式*/
+        a:hover{
+            text-decoration:none;
+        }
+        .link{
+            {#color: white;#}
+            display: inline-block;
+            color: black;
+            text-align: center;
+            width: 50px;
+            line-height: 30px;
+            height: 30px;
+            border: none;
+            border-radius:6px;
+            outline: none;
+            background: transparent;
+        }
+    /*头部样式*/
+        .head{
+            /*border: 1px solid red;*/
+        }
+        li{
+            list-style: none;
+        }
+        /*头部登录栏样式*/
+        .head_up{
+            height: 32px;
+            background: #343a3f;
+            padding: 5px;
+        }
+        .head_up a,.head_up span{
+            margin-left: 10px;
+            color: white;
+        }
+        .head_up a:hover ,.main a:hover{
+            color: #2aabd2;
+        }
+        .head_down{
+            margin-left: 1000px;
+        }
+    /*内容样式*/
+    .main{
+        margin: 0 5%;
+    }
+    /*内容左边样式*/
+    .main_left{
+        float: left;
+        width: 15%;
+    }
+    .main_left>ul{
+        height: 250px;
+        {#background: #343a3f;#}
+    }
+    .main_left>ul>li{
+        {#margin-left: -30px;#}
+        height: 40px;
+        padding-left: 35px;
+        padding-top: 5px;
+        border-bottom: 1px solid white;
+        color: white;
+        background: #343a3f;
+        font-size: 20px;
+    }
+    .main_left>ul>li>a{
+        {#margin-left: -30px;#}
+        color: white;
+    }
+
+    /*内容右边样式*/
+    .main_right{
+        float: right;
+        width: 80%;
+        {#border:1px solid black;#}
+        {#height: 600px;#}
+    }
+    .main_right_up{
+        height: 220px;
+        border: 1px solid gainsboro;
+    }
+    .main_right_up_left{
+        height: 210px;
+        padding-top: 5px;
+        float: left;
+        width: 10%;
+        margin-left: -30px;
+    }
+    .main_right_up_left>ul>li{
+        font-size: 18px;
+        height: 40px;
+        padding-top: 5px;
+        {#border-bottom: 1px solid #b5b5b5;#}
+        font-weight: 600;
+    }
+    .main_right_up_right{
+        float: left;
+        width: 90%;
+    }
+    .main_right_up_right>div{
+        margin-top: 12px;
+    }
+    .main_right_up_right>div>a{
+        color: #444444;
+        margin-top: -4px;
+        margin-left: 5px;
+    }
+    .year>input{
+        margin-top: 10px;
+    }
+    .main_right_down{
+        padding-left: 0;
+        margin-top: 20px;
+        {#height: 100%;#}
+        {#height: 600px;#}
+        border: 1px solid gainsboro;
+
+    }
+    .main_right_down>ul{
+        padding: 10px 10px;
+    }
+    .main_right_down>ul>li{
+        width: 16%;
+        float: left;
+        margin-top: 10px;
+        margin-left: 5px;
+    }
+    .main_right_down>ul>li>img{
+        width: 140px;
+        height: 190px;
+        border: 2px solid #b5b5b5;
+
+    }
+    .main_right_down>ul>li>p{
+        overflow: hidden;
+        margin:0;
+        height: 20px;
+        font-size: 10px;
+        color: #5e5e5e;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+    .download>a{
+        text-align: center;
+        color: white;
+        display: inline-block;
+        width: 50px;
+        border-radius: 4px;
+        background: black;
+    }
+    .download>a:first-child{
+        background:#31b0d5 ;
+    }
+    .download>a:last-child{
+        margin-left: 10px;
+        background: #fad119;
+    }
+    .star{
+        color: red;
+    }
+    .name{
+        display: inline-block;
+        overflow: hidden;
+        width: 150px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+    .actor{
+        height: 20px;
+    }
+    .actor>span:first-child{
+    }
+    .actor>span:last-child{
+        font-size: 12px;
+        display: inline-block;
+        {#padding-top: 2px;#}
+        overflow: hidden;
+        margin-left: 10px;
+        width: 80px;
+        {#height: 30px;#}
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+    .main_right_down1{
+        margin-top: 30px;
+        border-top: 1px dashed gainsboro;
+    }
+    .no_movies{
+        margin: 20px 20px;
+    }
+/*尾部样式*/
+    .foot{
+        margin-top: 100px;
+    }
+    .foot>p{
+        text-align: center;
+    }
+    .foot>p>a{
+        color: red;
+    }
+    </style>
+{% endblock %}
+{% block page_jq %}
+    <script rel="stylesheet" type="text/javascript">
+        $(function () {
+            $('.link').mouseover(function () {
+                $(this).css('background','black').css('color','white')
+            });
+            $('.link').mouseout(function () {
+                $(this).css('background','none').css('color','black')
+            });
+            $('.nav').mouseover(function () {
+                $(this).css('background',' #b5b5b5');
+                $(this).find('a').css('color','black')
+            });
+            $('.nav').mouseout(function () {
+                $(this).css('background','#343a3f');
+                $(this).find('a').css('color','white')
+            })
+        })
+    </script>
+{% endblock %}
+{% block page_head %}
+    <div class="head">
+        <div class="head_up">
+            <span>最新电影资源</span>
+            <a href="#">收藏网站</a>
+            {% include 'head.html' %}
+            <a href="{% url 'index' %}">首页</a>
+{#            {% for i in li  %}#}
+{#                <a href="#">{{ i }}</a>#}
+{#            {% endfor %}#}
+        </div>
+        {% if not username %}
+                    <marquee behavior="scroll" direction="left"><a href="{% url 'login' %}">登录</a><span>|</span><a href="{% url 'register' %}">注册</a><span>观看更多高清无码电影</span></marquee>
+        {% else %}
+                    <marquee behavior="scroll" direction="left">欢迎你，{{ username }}</marquee>
+        {% endif %}
+{#        <marquee class="head_down"><a href="#">登录</a><span>|</span><a href="#">注册</a><span>观看更多高清无码电影</span></marquee>#}
+    </div>
+{% endblock %}
+{% block page_main %}
+    <div class="main clearfix">
+        <div class="main_left">
+            <ul>
+                <li>全部分类</li>
+                <li class="nav"><a href="">短视频</a></li>
+                <li class="nav"><a href="">福利</a></li>
+                {% for cate in cates %}
+                  <li class="nav"><a href="/home/cate?cata_log_id={{ cate.cata_log_id }}">{{ cate.cata_log_name }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="main_right">
+            <div class="main_right_up">
+                <div class="main_right_up_left">
+                    <ul>
+                        {% for i in li2 %}
+                            <li>{{ i }}</li>
+                        {% endfor %}
+                    </ul>
+                    <ul>
+                        {% for i in li3 %}
+                            <li>{{ i }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="main_right_up_right">
+                    <div>
+                        <a class="link" href="/home/cate?cata_log_id={{ cate.cata_log_id }}">短视频</a>
+                        <a class="link" href="/home/cate?cata_log_id={{ cate.cata_log_id }}">福利</a>
+                        {% for cate in cates %}
+                            <a class="link" href="/home/cate?cata_log_id={{ cate.cata_log_id }}">{{ cate.cata_log_name }}</a>
+                        {% endfor %}
+                    </div>
+                    <div>
+                        {% for sub in subs %}
+                            <a class="link" href="/home/cate?{{ urls }}&sub_class_name={{ sub.sub_class_name }}">{{ sub.sub_class_name }}</a>
+                        {% endfor %}
+                    </div>
+                    <div>
+                        {% for loc in locs %}
+                            <a class="link" href="/home/cate?{{ urls }}&loc_id={{ loc.loc_id }}">{{ loc.loc_name }}</a>
+                        {% endfor %}
+                    </div>
+                    <div class="year">
+                        {% for i in li1 %}
+                            <a class="link" href="/home/cate?{{ urls }}&year={{ i }}">{{ i }}</a>
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+            {% if films %}
+                <div class="main_right_down">
+                <ul class="clearfix">
+                    {% for film in films %}
+                        <li>
+                        <img src="{% static film.image  %}" alt="">
+                        <div><a href="{% url 'detail' film.id %}" class="name">{{ film.name }}</a></div>
+                        <p>评分:<span class="star">☆☆☆☆☆☆</span></p>
+                        <p class="actor"><span>主演:</span><span>{{ film.actor }}</span></p>
+                        <p>状态:<span>{{ film.status }}</span> 地区：<span>{{ film.loc_name }}</span></p>
+                        <p>类型：<span>{{ film.sub_class_name.sub_class_name }}</span> 更新:<span>{{ film.update_time|slice:'5:10' }}</span></p>
+                        <p class="download"><a href="">观看</a>   <a href="">下载</a></p>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% else %}
+                <div class="main_right_down1">
+                    <p class="no_movies">对不起，没有找到任何记录,请您<a href="" style="color: red">在此留言</a>，我们尽快为你添加喜欢的数据</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+{% block page_footer %}
+    <div class="foot">
+        <p>免责声明：如果侵犯了你的权益，请发邮件至：chl14@163.com，我们会及时删除侵权内容，谢谢合作！</p>
+        <p>Copyright © 2018 蜀ICP备16028726号 2018 All Rights Reserved.<a href="http://www.cnzz.com/stat/website.php?web_id=1272902876"><img src="http://icon.cnzz.com/img/pic.gif"></a></p>
+    </div>
+{% endblock %}

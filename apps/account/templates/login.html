@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>登录</h1>
+{% if not user %}
+    <p>{{ msg }}</p>
+    {% if  not is_active  %}
+        <a href="{% url 'inactive' %}">跳转到激活界面</a>
+    {% endif %}
+{% endif %}
+<form action="{% url 'login' %}" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="next" value="next">
+    <label for="">用户名：
+        <input type="text" name="username">
+    </label>
+    <label for="">密码：
+        <input type="password" name="password">
+    </label>
+    <input type="submit" value="登录">
+</form>
+<div><a href="{% url 'index' %}">返回首页</a></div>
+</body>
+</html>

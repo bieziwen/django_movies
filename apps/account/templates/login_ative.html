@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>发送邮箱激活</title>
+</head>
+<body>
+<form action="{% url 'inactive' %}" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="next" value="next">
+    <label for="">用户名：
+        <input type="text" name="username">
+    </label>
+    <label for="">密码：
+        <input type="password" name="password">
+    </label>
+    <label for="">邮箱
+        <input type="email" name="email">
+    </label>
+    <input type="submit" value="提交">
+
+</form>
+</body>
+</html>
