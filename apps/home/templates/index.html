@@ -254,7 +254,7 @@
                         <div class="up">
                             {% for film in films1|slice:':3' %}
                                 <li class="rank">
-                                    <span>{{ forloop.counter }}</span><a href="">{{ film.name }}</a><span class="time">{{ film.update_time|slice:'5:10' }}</span>
+                                    <span>{{ forloop.counter }}</span><a href="{% url 'detail' film.id %}">{{ film.name }}</a><span class="time">{{ film.update_time|slice:'5:10' }}</span>
                                     <img class="rank_img" src="{% static film.image %}" alt="">
                                 </li>
                             {% empty %}
@@ -264,7 +264,7 @@
                         <div class="down">
                             {% for film in films1|slice:'3:12' %}
                                 <li class="rank">
-                                    <span>{{ forloop.counter|add:3 }}</span><a href="">{{ film.name }}</a><span class="time">{{ film.update_time|slice:'5:10' }}</span>
+                                    <span>{{ forloop.counter|add:3 }}</span><a href="{% url 'detail' film.id %}">{{ film.name }}</a><span class="time">{{ film.update_time|slice:'5:10' }}</span>
                                     <img class="rank_img" src="{% static film.image %}" alt="">
                                 </li>
                             {% empty %}
@@ -304,7 +304,7 @@
                         <div class="up">
                             {% for film in films2|slice:':3' %}
                                 <li class="rank">
-                                    <span>{{ forloop.counter }}</span><a href="">{{ film.name }}</a><span class="time">{{ film.update_time|slice:'5:10' }}</span>
+                                    <span>{{ forloop.counter }}</span><a href="{% url 'detail' film.id %}">{{ film.name }}</a><span class="time">{{ film.update_time|slice:'5:10' }}</span>
                                     <img class="rank_img" src="{% static film.image %}" alt="">
                                 </li>
                             {% empty %}
@@ -314,7 +314,7 @@
                         <div class="down">
                             {% for film in films2|slice:'3:12' %}
                                 <li class="rank">
-                                    <span>{{ forloop.counter|add:3 }}</span><a href="">{{ film.name }}</a><span class="time">{{ film.update_time|slice:'5:10' }}</span>
+                                    <span>{{ forloop.counter|add:3 }}</span><a href="{% url 'detail' film.id %}">{{ film.name }}</a><span class="time">{{ film.update_time|slice:'5:10' }}</span>
                                     <img class="rank_img" src="{% static film.image %}" alt="">
                                 </li>
                             {% empty %}
@@ -354,7 +354,7 @@
                         <div class="up">
                             {% for film in films3|slice:':3' %}
                                 <li class="rank">
-                                    <span>{{ forloop.counter }}</span><a href="">{{ film.name }}</a><span class="time">{{ film.update_time|slice:'5:10' }}</span>
+                                    <span>{{ forloop.counter }}</span><a href="{% url 'detail' film.id %}">{{ film.name }}</a><span class="time">{{ film.update_time|slice:'5:10' }}</span>
                                     <img class="rank_img" src="{% static film.image %}" alt="">
                                 </li>
                             {% empty %}
@@ -363,7 +363,7 @@
                         </div>
                         <div class="down">
                             {% for film in films3|slice:'3:12' %}
-                                <li class="rank"><span>{{ forloop.counter|add:3 }}</span><a href="">{{ film.name }}</a><span class="time">{{ film.update_time|slice:'5:10' }}</span>
+                                <li class="rank"><span>{{ forloop.counter|add:3 }}</span><a href="{% url 'detail' film.id %}">{{ film.name }}</a><span class="time">{{ film.update_time|slice:'5:10' }}</span>
                                     <img class="rank_img" src="{% static film.image %}" alt="">
                                 </li>
                             {% empty %}

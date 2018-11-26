@@ -221,7 +221,24 @@
             $('.nav').mouseout(function () {
                 $(this).css('background','#343a3f');
                 $(this).find('a').css('color','white')
-            })
+            });
+            $('.main_right_up_right a').click(function () {
+                $(this).css('background','#343a3f')
+                        .css('color','white')
+            });
+            {#点击分类后的样式#}
+
+
+           $('#{{ cata_log_id }}').css('background','#343a3f')
+                        .css('color','white');
+            $('#L{{ cata_log_id }}').css('color','black');
+            $('#l{{ cata_log_id }}').css('background',' #b5b5b5');
+            $('#{{ sub_class_name }}').css('background','#343a3f')
+                        .css('color','white');
+            $('#{{ loc_id }}').css('background','#343a3f')
+                        .css('color','white');
+            $('#{{ year }}').css('background','#343a3f')
+                        .css('color','white')
         })
     </script>
 {% endblock %}
@@ -249,10 +266,10 @@
         <div class="main_left">
             <ul>
                 <li>全部分类</li>
-                <li class="nav"><a href="">短视频</a></li>
-                <li class="nav"><a href="">福利</a></li>
+                <li class="nav"><a id="f39c979857a4874a0157a4a6a4fe" href="/home/cate?cata_log_id=f39c979857a4874a0157a4a6a4fe">短视频</a></li>
+                <li class="nav"><a id="f39c979857a4874a0157a4a6a4fe" href="/home/cate?cata_log_id=f39c979857a4874a0157a4a6a4fe">福利</a></li>
                 {% for cate in cates %}
-                  <li class="nav"><a href="/home/cate?cata_log_id={{ cate.cata_log_id }}">{{ cate.cata_log_name }}</a></li>
+                  <li class="nav" id="l{{ cate.cata_log_id }}"><a id="L{{ cate.cata_log_id }}" href="/home/cate?cata_log_id={{ cate.cata_log_id }}">{{ cate.cata_log_name }}</a></li>
                 {% endfor %}
             </ul>
         </div>
@@ -264,33 +281,28 @@
                             <li>{{ i }}</li>
                         {% endfor %}
                     </ul>
-                    <ul>
-                        {% for i in li3 %}
-                            <li>{{ i }}</li>
-                        {% endfor %}
-                    </ul>
                 </div>
                 <div class="main_right_up_right">
                     <div>
-                        <a class="link" href="/home/cate?cata_log_id={{ cate.cata_log_id }}">短视频</a>
-                        <a class="link" href="/home/cate?cata_log_id={{ cate.cata_log_id }}">福利</a>
+                        <a class="link" id="111" href="/home/cate?cata_log_id=111">短视频</a>
+                        <a class="link" id="222" href="/home/cate?cata_log_id=222">福利</a>
                         {% for cate in cates %}
-                            <a class="link" href="/home/cate?cata_log_id={{ cate.cata_log_id }}">{{ cate.cata_log_name }}</a>
+                            <a class="link" id="{{ cate.cata_log_id }}" href="/home/cate?cata_log_id={{ cate.cata_log_id }}">{{ cate.cata_log_name }}</a>
                         {% endfor %}
                     </div>
                     <div>
                         {% for sub in subs %}
-                            <a class="link" href="/home/cate?{{ urls }}&sub_class_name={{ sub.sub_class_name }}">{{ sub.sub_class_name }}</a>
+                            <a class="link" id="{{ sub.sub_class_name }}" href="/home/cate?{{ urls }}&sub_class_name={{ sub.sub_class_name }}">{{ sub.sub_class_name }}</a>
                         {% endfor %}
                     </div>
                     <div>
                         {% for loc in locs %}
-                            <a class="link" href="/home/cate?{{ urls }}&loc_id={{ loc.loc_id }}">{{ loc.loc_name }}</a>
+                            <a class="link" id="{{ loc.loc_id }}" href="/home/cate?{{ urls }}&loc_id={{ loc.loc_id }}">{{ loc.loc_name }}</a>
                         {% endfor %}
                     </div>
                     <div class="year">
                         {% for i in li1 %}
-                            <a class="link" href="/home/cate?{{ urls }}&year={{ i }}">{{ i }}</a>
+                            <a class="link" id="{{ i }}" href="/home/cate?{{ urls }}&year={{ i }}">{{ i }}</a>
                         {% endfor %}
 
                     </div>
